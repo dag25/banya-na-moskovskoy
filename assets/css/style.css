@@ -608,9 +608,7 @@ body.show-nav .header {
     padding: 60px 0;
 }
 
-.section--map {
-    background: url('../../assets/images/clients/price.jpg') no-repeat left 30px top 130px;
-}
+.section--map {}
 
 .section--gray {
     background-color: #f9f9f9;
@@ -1008,6 +1006,11 @@ body.show-nav .header {
 
 .clients__logos {
     width: 60%;
+    height: 600px;
+    background: url('../../assets/images/clients/price.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 0;
 }
 
 .clients__reviews {
@@ -1371,7 +1374,7 @@ body.show-nav .header {
     font-size: 22px;
     line-height: 25px;
     text-align: center;
-    
+
     color: #585858;
 }
 
@@ -1963,7 +1966,7 @@ body.show-nav .header {
     }
 
     .mission__subtitle {
-        font-size: 18px;        
+        font-size: 18px;
     }
 
     /* articles */
