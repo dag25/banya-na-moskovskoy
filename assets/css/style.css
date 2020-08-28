@@ -2,6 +2,12 @@
     --color-yellow: #ecbb4c;
     --color-blue: #004af2;
     --color-white: #ffff;
+    --color-red: #FC2C2B;
+    --text-color: #4444;
+    --bg-color: #131313;
+    --shadow-color: #bfbfbf;
+    --shadow-text-color: #fff;
+    --btn-color: #004af2;
 }
 
 body {
@@ -148,24 +154,61 @@ body.show-nav .header {
     font-size: 16px;
 }
 
+
+
 .nav__link {
     display: flex;
     align-items: center;
-    padding: 0 15px;
+    margin: 0 15px;
+
+    font-size: 16px;
 
     color: #fff;
     text-decoration: none;
 
+    position: relative;
+    overflow: hidden;
+
     transition: background 0.2s linear;
 }
 
-.nav__link:not(.active):hover {
-    text-decoration: underline;
+.nav__link:not(.active):hover span {
+    width: 100%;
+    transition: width .3s;
 }
 
 .nav__link.active {
-    background-color: #004af2;
+    color: #004af2;
 }
+
+.nav__link span {
+    position: absolute;
+    left: 0;
+    display: block;
+    overflow: hidden;
+    width: 0;
+    font-size: 16px;
+    height: 100%;
+    backface-visibility: hidden;
+
+    transition: width .3s;
+}
+
+.nav__link span::before {
+    content: attr(data-text);
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: var(--color-red);
+    backface-visibility: hidden;
+}
+
+
 
 /* burger */
 
@@ -389,7 +432,7 @@ body.show-nav .header {
 
 .intro__clouds img {
     position: absolute;
-    bottom: -100px;
+    bottom: -200px;
     max-width: 100%;
 
     animation: animateClouds calc(3s * var(--i)) linear infinite;
@@ -548,11 +591,11 @@ body.show-nav .header {
     cursor: pointer;
     text-decoration: none;
 
-    background: #333;
+    background: transparent;
     border: none;
     border-radius: 5px;
 
-    transition: background-size 0.2s linear;
+    transition: 0.2s;
 }
 
 .btn::before {
@@ -572,10 +615,76 @@ body.show-nav .header {
     transition: opacity 0.1 linear;
 }
 
-.btn span {
+
+.neon-btn:hover {
+    background-color: var(--btn-color);
+    box-shadow: 0 0 10px var(--btn-color), 0 0 40px var(--btn-color), 0 0 80px var(--btn-color);
+    transition-delay: 1s;
+}
+
+.neon-btn__decorate {
+    position: absolute;
+}
+
+.neon-btn__decorate--one {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--btn-color));
+}
+
+.neon-btn:hover .neon-btn__decorate--one {
+    left: 100%;
+    transition: 1s;
+}
+
+.neon-btn__decorate--three {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(270deg, transparent, var(--btn-color));
+}
+
+.neon-btn:hover .neon-btn__decorate--three {
+    right: 100%;
+    transition: 1s;
+    transition-delay: 0.5s;
+}
+
+.neon-btn__decorate--two {
+    top: -100%;
+    right: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, var(--btn-color));
+}
+
+.neon-btn:hover .neon-btn__decorate--two {
+    top: 100%;
+    transition: 1s;
+    transition-delay: 0.25s;
+}
+
+.neon-btn__decorate--four {
+    bottom: -100%;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, var(--btn-color));
+}
+
+.neon-btn:hover .neon-btn__decorate--four {
+    bottom: 100%;
+    transition: 1s;
+    transition-delay: 0.75s;
+}
+
+/* .btn span {
     position: relative;
     z-index: 2;
-}
+} */
 
 .btn:hover::before {
     opacity: 0.1;
@@ -653,7 +762,7 @@ body.show-nav .header {
 
     0%,
     100% {
-        clip-path: polygon(0% 45%, 15% 44%, 32% 50%, 54% 60%, 70% 61%, 84% 59%, 100% 52%, 100% 100%, 0% 100%);
+        clip-path: polygon(0% 5%, 5% 24%, 32% 50%, 54% 60%, 90% 81%, 84% 59%, 100% 52%, 100% 100%, 0% 100%);
     }
 
     50% {
@@ -840,66 +949,9 @@ body.show-nav .header {
     font-weight: 300;
 }
 
-@media screen and (max-width:64rem) {
-    .services__col {
-        width: calc(33.3333% - 2rem);
-    }
-}
 
-@media screen and (max-width:48rem) {
-    .services__col {
-        width: calc(50% - 2rem);
-    }
-}
 
-@media screen and (max-width:32rem) {
-    .services__col {
-        width: 100%;
-        margin: 0 0 2rem 0;
-    }
-}
 
-/* .services::before,
-.services::after {
-    content: "";
-    position: absolute;
-
-    width: 33px;
-    height: 33px;
-
-    transition: all .5s;
-}
-
-.services::before {
-    top: 19px;
-    left: 19px;
-    border-top: 2px solid var(--color-main);
-    border-left: 2px solid var(--color-main);
-}
-
-.services::after {
-    bottom: 19px;
-    right: 19px;
-    border-bottom: 2px solid var(--color-main);
-    border-right: 2px solid var(--color-main);
-}
-
-.services:hover::before {
-    border-top: 2px solid var(--color-main);
-    border-left: 2px solid var(--color-main);
-
-    width: 30%;
-    height: 40%;
-
-}
-
-.services:hover::after {
-    border-bottom: 2px solid var(--color-main);
-    border-right: 2px solid var(--color-main);
-
-    width: 30%;
-    height: 40%;
-} */
 
 .services__main-title {
     font-family: 'Lato', sans-serif;
@@ -1010,7 +1062,7 @@ body.show-nav .header {
     background: url('../../assets/images/clients/price.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: 0 0;
+    background-position: center center;
 }
 
 .clients__reviews {
@@ -1192,117 +1244,384 @@ body.show-nav .header {
     text-indent: 20px;
 }
 
-/* benefits */
+/* prices */
 
-.benefits {
-    display: flex;
-}
-
-.benefits__col {
-    width: 50%;
-}
-
-.benefits-list {
+.accordion {
     width: 100%;
-    max-width: 370px;
-    padding-left: 50px;
+    /*
+ширина произвольная выбирается
+в зависимости от места размещения 
+*/
+    /* max-width: 1000px; */
+    min-height: 0;
+    display: block;
+    /* относительное позиционирование */
     position: relative;
-
-    background-image: linear-gradient(to bottom, #fff 40%, #a5a5a5 40%);
-    background-size: 2px 35px;
-    background-repeat: repeat-y;
-    background-position: left 12px top -4px;
+    margin: 0 auto;
+    padding: 0;
+    background-color: #fefffa;
+    overflow: hidden
 }
 
-
-
-.benefits-list__item:not(:last-child) {
-    margin-bottom: 35px;
-}
-
-.benefits-list__title {
-    margin-bottom: 12px;
-
-    font-family: 'Lato', sans-serif;
-    font-style: normal;
-    font-weight: 900;
-    font-size: 22px;
-    line-height: 25px;
-    color: #2C2C2C;
-}
-
-.benefits-list__text {
-    font-family: 'PT Sans', sans-serif;
-    font-style: normal;
-    font-weight: normal;
+/* заголовки панелей аккордеона */
+.accordion h2 {
     font-size: 16px;
-    line-height: 21px;
-    color: #585858;
+    font-weight: 300;
+    letter-spacing: 1px;
+    display: block;
+    margin: 0;
+    padding: 10px 25px;
+    cursor: pointer;
+    color: #f4f4f4;
+    background: #004af2;
+    border-top: 1px solid #3face4;
+    border-bottom: 1px solid #2479a5;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
+
+/* заголовки панелей аккордеона при наведении
+* в данном варианте не срабатывает
+*/
+.accordion input:hover {
+    display: block;
+    color: #005049;
+}
+
+
+/* Формируем блоки с содерханием */
+.msg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    overflow: hidden;
+    max-height: 1786px;
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* оформляем параграфы */
+.msg p {
+    color: rgba(48, 69, 92, 0.8);
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: 1px;
+    padding: 0 20px
+}
+
+/* Позаботимся о небольших экранах */
+@media (max-width: 550px) {
+    .accordion {
+        box-sizing: border-box;
+        transform: translate(0, 0);
+        max-width: 100%;
+        min-height: 100%;
+        margin: 0;
+        left: 0;
+    }
+}
+
+/* Формируем неупорядоченный список */
+.accordion ul {
+    list-style: none;
+    perspective: 900;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 50px;
+}
+
+/* Определяем и формируем отдельный элемент списка 
+    в который поместим скрытый флажек,
+    заголовок панелей и блок с содержанием
+*/
+.accordion ul li {
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+/* устанавливаем время ожидания перед воспроизведением анимации 
+ * на основе нумерации в дереве элементов
+*/
+.accordion ul li:nth-of-type(1) {
+    animation-delay: 0.5s;
+}
+
+.accordion ul li:nth-of-type(2) {
+    animation-delay: 0.75s;
+}
+
+.accordion ul li:nth-of-type(3) {
+    animation-delay: 1s;
+}
+
+.accordion ul li:last-of-type {
+    padding-bottom: 0;
+}
+
+/* Сформируем  указатель переключения состояния аккордеона */
+.accordion ul li i {
+    position: absolute;
+    transform: translate(-6px, 0);
+    margin-top: 16px;
+    /* расположим указатель на панели заголовка справа */
+    right: 25px;
+}
+
+/* "Рисуем " сам указатель */
+.accordion ul li i:before,
+.accordion ul li i:after {
+    content: "";
+    position: absolute;
+    background-color: #eee;
+    width: 3px;
+    height: 9px;
+}
+
+/* Добавляем элемент трансформации указателя при переключении */
+.accordion ul li i:before {
+    transform: translate(-2px, 0) rotate(45deg);
+}
+
+.accordion ul li i:after {
+    transform: translate(2px, 0) rotate(-45deg);
+}
+
+/* Делаем чекбокс скрытым*/
+.accordion ul li input[type=checkbox] {
+    position: absolute;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+}
+
+/* Когда у флажка установлен checked  
+ * блок с содержанием скрыт
+*/
+.accordion ul li input[type=checkbox]:checked~div.msg {
+    margin-top: 0;
+    max-height: 0;
+    opacity: 0;
+    transform: translate(0, 50%);
+}
+
+/* А указатель показывает вниз */
+.accordion ul li input[type=checkbox]:checked~i:before {
+    transform: translate(2px, 0) rotate(45deg);
+}
+
+.accordion ul li input[type=checkbox]:checked~i:after {
+    transform: translate(-2px, 0) rotate(-45deg);
+}
+
+/*  Устанавливаем эффект перехода
+ * между двумя состояниями указателя 
+*/
+div.msg,
+ul li i:before,
+ul li i:after {
+    transition: all 0.5s ease-in-out;
+}
+
+/**
+ * Изображения внутри аккордеона
+ * ...сделаем их отзывчивыми
+ */
+.accordion .msg img {
+    border-radius: 50%;
+    width: 100%;
+    height: auto;
+    -moz-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+/* миниатюра слева */
+.msg img.img-left {
+    width: 10%;
+    float: left;
+    margin: 5px 15px 5px 0;
+}
+
+/* миниатюра справа */
+.msg img.img-right {
+    width: 10%;
+    float: right;
+    margin: 5px 0 5px 15px;
+}
+
+/* таблица */
+
+.bordered {
+    width: 75%;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+}
+
+.bordered tr:hover {
+    background-color: #004af2;
+    color: #fff;
+}
+
+.bordered td {
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding: 5px 15px;
+    text-align: left;
+}
+
+.bordered td:first-child {
+    border-left: none;
+    text-align: left;
+}
+
+table {
+    max-width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.prices__info {
+    text-align: center;
+}
+
+
+
+
 
 /* gallery */
 
+.gallery {
+    display: flex;
 
+    height: 500px;
+    padding: 20px;
+    border: 1px solid #fff;
+}
 
-.b-marquee-line__flow {
-    background: #f0f0f0;
-    font-size: 0;
-    line-height: 0;
-    height: 420px;
-    overflow: hidden;
+.gallery__img {
+    flex-grow: 1;
+
+    background-size: 750px 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    transition: 1s;
+    filter: grayscale(1);
+    opacity: 0.8;
+
     position: relative;
-    width: 100%;
-}
-
-.b-marquee-line__flow-in {
-    display: block;
-    height: 420px;
-}
-
-.cssanimations .b-marquee-line__flow-in {
-    width: 200%;
-    position: absolute;
     overflow: hidden;
-    -webkit-animation: marquee 40s linear infinite;
-    animation: marquee 40s linear infinite;
 }
 
-.b-marquee-line__flow-block {
-    white-space: nowrap;
+.gallery__img:hover {
+    background-size: 900px 600px;
+    flex-grow: 5;
+    filter: grayscale(0);
+    opacity: 1;
 }
 
-.no-cssanimations .b-marquee-line__flow-block:last-child {
-    display: none;
+.line-left-right::before,
+.line-left-right::after,
+.line-top-bottom::before,
+.line-top-bottom::after {
+    content: "";
+    position: absolute;
+    background-color: #fff;
+    opacity: .3;
+    transition: 1s;
 }
 
-.cssanimations .b-marquee-line__flow-block {
-    white-space: nowrap;
-    float: left;
-    width: 50%;
+.line-left-right::before {
+    width: 2px;
+    height: 100%;
+
+    top: 0;
+    left: 10px;
 }
 
-.b-marquee-line__flow-item {
-    height: 420px;
+.line-top-bottom::before {
+    width: 100%;
+    height: 2px;
+    top: 10px;
+    left: 0;
 }
 
-@-webkit-keyframes marquee {
-    0% {
-        left: 0;
-    }
-
-    100% {
-        left: -100%;
-    }
+.line-left-right::after {
+    width: 2px;
+    height: 100%;
+    bottom: 0;
+    right: 10px;
 }
 
-@keyframes marquee {
-    0% {
-        left: 0;
-    }
+.line-top-bottom::after {
+    width: 100%;
+    height: 2px;
+    bottom: 10px;
+    right: 0;
+}
 
-    100% {
-        left: -100%;
-    }
+.gallery__img:hover .line-left-right::before,
+.gallery__img:hover .line-left-right::after,
+.gallery__img:hover .line-top-bottom::before,
+.gallery__img:hover .line-top-bottom::after {
+    transition: 1s;
+    opacity: .7;
+    transition-delay: .3s;
+}
+
+.gallery__img:hover .line-left-right::after {
+    transform: translateY(-100%);
+}
+
+.gallery__img:hover .line-left-right::before {
+    transform: translateY(100%);
+}
+
+.gallery__img:hover .line-top-bottom::before {
+    transform: translateX(100%);
+}
+
+.gallery__img:hover .line-top-bottom::after {
+    transform: translateX(-100%);
+}
+
+.gallery__content {
+    color: #fff;
+    background-color: #000;
+    opacity: .7;
+    text-align: justify;
+    width: 70%;
+
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+
+    padding: 15px;
+    box-sizing: border-box;
+
+    transform: translateY(120%);
+    transition: .5s;
+}
+
+.gallery__img:hover .gallery__content {
+    transform: translateY(0);
+    transition-delay: 1s;
+}
+
+.gallery__title {
+    margin: 0 0 5px;
+    padding: 0;
+    text-transform: uppercase;
+    color: var(--color-yellow);
 }
 
 /* mission */
@@ -1451,15 +1770,14 @@ body.show-nav .header {
     padding: 40px 0;
     margin-top: auto;
 
-    background-color: #000;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-position: left -50px bottom -80px,
-        right -50px bottom -80px;
+    background-color: var(--bg-color);
 
+    color: var(--text-color);
     text-align: center;
     position: relative;
 }
+
+
 
 .footer__contacts {
     margin: 25px 0;
@@ -1497,6 +1815,38 @@ body.show-nav .header {
 
 .footer__nav a:hover {
     text-decoration: underline;
+}
+
+.footer__pass {
+    transition: .3s;
+    animation: shadow 2s infinite;
+}
+
+@keyframes shadow {
+    0% {
+        color: var(--shadow-text-color);
+        text-shadow:
+            0 0 5px var(--shadow-color),
+            0 0 10px var(--shadow-color),
+            0 0 20px var(--shadow-color),
+            0 0 30px var(--shadow-color),
+            0 0 400px var(--shadow-color);
+    }
+
+    50% {
+        color: var(--text-color);
+        text-shadow: none;
+    }
+
+    100% {
+        color: var(--shadow-text-color);
+        text-shadow:
+            0 0 5px var(--shadow-color),
+            0 0 10px var(--shadow-color),
+            0 0 20px var(--shadow-color),
+            0 0 30px var(--shadow-color),
+            0 0 40px var(--shadow-color);
+    }
 }
 
 /* modal */
@@ -1653,93 +2003,17 @@ body.show-nav .header {
     padding: 0 15px;
 }
 
-/* text */
 
-.text {
-    max-width: 890px;
-    margin-bottom: 50px;
-
-    font-family: 'PT Sans', sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 1.5;
-    color: #585858;
-}
-
-.text p {
-    margin-bottom: 20px;
-}
-
-.text h2,
-.text h3,
-.text h4,
-.text h5,
-.text h6 {
-    margin-bottom: 20px;
-
-    font-weight: 700;
-    color: #2c2c2c;
-}
-
-.text h2 {
-    font-size: 28px;
-}
-
-.text h3 {
-    font-size: 24px;
-}
-
-.text h4 {
-    font-size: 22px;
-}
-
-.text h5 {
-    font-size: 18px;
-}
-
-.text h6 {
-    font-size: 16px;
-}
-
-.text ul,
-.text ol {
-    margin-bottom: 20px;
-}
-
-.text ol {
-    list-style: decimal;
-    list-style-position: inside;
-}
-
-.text hr {
-    display: block;
-    width: 100%;
-    height: 1px;
-    margin: 40px 0;
-
-    border: 0;
-    background: #d1d1d1;
-}
-
-.text img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-}
-
-.text a {
-    text-decoration: none;
-    color: #0d53f2;
-}
-
-.text a:hover {
-    text-decoration: underline;
-}
 
 /* ************** */
 /* media queries */
 /* ************** */
+
+@media (max-width: 1150px) {
+    .services__col {
+        width: calc(50% - 100px);
+    }
+}
 
 @media (max-width: 991px) {
 
@@ -1810,11 +2084,7 @@ body.show-nav .header {
 
     /* footer */
 
-    .footer {
-        background-size: 330px auto;
-        background-position: left -30px bottom -30px,
-            right -30px bottom -30px;
-    }
+    
 
     /* main */
 
@@ -1831,6 +2101,10 @@ body.show-nav .header {
 
 
 @media (max-width: 767px) {
+
+    .section__title h2 {
+        font-size: 40px;
+    }
 
     /* header */
 
@@ -1867,8 +2141,13 @@ body.show-nav .header {
 
     .nav__link {
         display: block;
-        padding: 10px 15px;
-        text-align: right;
+        /* padding: 10px 15px; */
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-right: 5%;
+        margin-left: auto;
+        width: 75px;
     }
 
     .burger {
@@ -1898,6 +2177,10 @@ body.show-nav .header {
         text-align: center;
     }
 
+    .intro__countries {
+        margin-top: 20px;
+    }
+
     .intro__title {
         font-size: 70px;
     }
@@ -1912,6 +2195,12 @@ body.show-nav .header {
     .request-form--intro {
         order: 2;
         position: static;
+    }
+
+    /* services */
+
+    .services__col {
+        width: calc(50% - 20px);
     }
 
     /* benefits */
@@ -1929,6 +2218,13 @@ body.show-nav .header {
     .benefits-list {
         margin-bottom: 30px;
         max-width: none;
+    }
+
+    /* clients */
+
+    .clients-love {
+        background-position: left 50% top;
+
     }
 
     /* team */
@@ -1981,11 +2277,7 @@ body.show-nav .header {
 
     /* footer */
 
-    .footer {
-        background-size: 250px auto;
-        background-position: left -20px bottom -30px,
-            right -20px bottom -30px;
-    }
+    .footer {}
 
     /* main */
 
@@ -2013,10 +2305,19 @@ body.show-nav .header {
 
 @media (max-width: 575px) {
 
+    .section__title {
+        height: 70px;
+    }
+
+    .section__title h2 {
+        font-size: 30px;
+    }
+
     /* intro */
 
     .intro__title {
         font-size: 60px;
+        line-height: 60px;
     }
 
     .intro__title-amp {
@@ -2026,7 +2327,7 @@ body.show-nav .header {
     /* services */
 
     .services {
-        padding-top: 55px;
+        padding-top: 0px;
         padding-bottom: 10px;
     }
 
@@ -2043,6 +2344,11 @@ body.show-nav .header {
 
     .services__item {
         width: 100%;
+    }
+
+    .services__col {
+        width: 100%;
+        margin: 0 0 2rem 0;
     }
 
     /* section */
@@ -2091,6 +2397,37 @@ body.show-nav .header {
         display: block;
         margin-left: 0;
         margin-top: 20px;
+    }
+
+    /* gallery */
+
+    .line-left-right::before {
+        left: 5px;
+    }
+
+    .line-left-right::after {
+        right: 5px;
+    }
+
+    .line-top-bottom::before {
+        top: 5px;
+    }
+
+    .line-top-bottom::after {
+        bottom: 5px;
+    }
+
+    /* .gallery__img {
+        background-size: 450px 300px;
+    }
+
+    .gallery__img:hover {
+        background-size: 525px 350px;
+    } */
+
+    .gallery__content {
+        width: 93%;
+        padding: 10px;
     }
 
     /* mission */
